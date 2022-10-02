@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MySplash</string>
+    <string name="usuarioLabel">Usuario</string>
+    <string name="contraseñaLabel">Contraseña</string>
+    <string name="Login">Iniciar</string>
+    <string name="Regitrar">Registrarse</string>
+    <string name="olvide">Olvide contraseña</string>
+    <string name="registro">Registro</string>
+    <string name="nombre">Nombre completo</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="tel">Número de telefono</string>
+    <string name="Eddd">¿Eres mayor de edad?</string>
+    <string name="Edad">Edad</string>
+    <string name="Masculino">Masculino</string>
+    <string name="Femenino">Femenino</string>
+    <string name="Otro">Prefiero no decirlo</string>
+    <string name="Sexo">Sexo</string>
+</resources>
