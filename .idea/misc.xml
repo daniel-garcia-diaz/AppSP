@@ -3,8 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.24583333333333332" />
+        <entry key="..\:/MySplash/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2385" />
+        <entry key="..\:/MySplash/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2385" />
+        <entry key="..\:/MySplash/app/src/main/res/layout/activity_login.xml" value="0.22418478260869565" />
+        <entry key="..\:/MySplash/app/src/main/res/layout/activity_main.xml" value="0.371875" />
+        <entry key="..\:/MySplash/app/src/main/res/layout/activity_olvide.xml" value="0.22327898550724637" />
+        <entry key="..\:/MySplash/app/src/main/res/layout/activity_principal.xml" value="0.22327898550724637" />
+        <entry key="..\:/MySplash/app/src/main/res/layout/activity_registro.xml" value="0.33" />
+        <entry key="..\:/MySplash/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2385" />
+        <entry key="app/src/main/res/drawable/degra.xml" value="0.229" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1888916015625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23177083333333334" />
+        <entry key="app/src/main/res/layout/activity_olvide.xml" value="0.2011273149131001" />
+        <entry key="app/src/main/res/layout/activity_principal.xml" value="0.19485845740096686" />
         <entry key="app/src/main/res/layout/activity_registro.xml" value="0.24583333333333332" />
       </map>
     </option>

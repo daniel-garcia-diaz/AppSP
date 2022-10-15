@@ -1,0 +1,94 @@
+package com.example.mysplash;
+
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
+
+import java.io.Serializable;
+
+public class Info implements Serializable {
+
+
+    private Button btnRegistrarme;
+    private String nomCompleto;
+    private String email;
+    private String telefono;
+    private String edad;
+    private String user;
+    private String contra;
+    private String sexo;
+    private String[] gustos;
+
+    public Button getBtnRegistrarme() {
+        return btnRegistrarme;
+    }
+
+    public void setBtnRegistrarme(Button btnRegistrarme) {
+        this.btnRegistrarme = btnRegistrarme;
+    }
+
+    public String getNomCompleto() {
+        return nomCompleto;
+    }
+
+    public void setNomCompleto(String nomCompleto) {
+        this.nomCompleto = nomCompleto;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String[] getGustos() {
+        return gustos;
+    }
+
+    public void setGustos(String[] gustos) {
+        this.gustos = gustos;
+    }
+}
