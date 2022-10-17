@@ -113,11 +113,16 @@ public class Login extends AppCompatActivity {
 
     public void json2List( String json )
     {
+        Button button1 = findViewById(R.id.login);
+        Button button2 = findViewById(R.id.olvide);
+
         Gson gson = null;
         String mensaje = null;
         if (json == null || json.length() == 0)
         {
             Toast.makeText(getApplicationContext(), "Error json null or empty", Toast.LENGTH_LONG).show();
+            button1.setEnabled(false);
+            button2.setEnabled(false);
             return;
         }
         gson = new Gson();
@@ -126,6 +131,8 @@ public class Login extends AppCompatActivity {
         if (list == null || list.size() == 0 )
         {
             Toast.makeText(getApplicationContext(), "Error list is null or empty", Toast.LENGTH_LONG).show();
+            button1.setEnabled(false);
+            button2.setEnabled(false);
             return;
         }
     }

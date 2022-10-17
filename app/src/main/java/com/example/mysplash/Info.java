@@ -19,6 +19,7 @@ public class Info implements Serializable {
     private String contra;
     private String sexo;
     private String[] gustos;
+    private String[] redes;
 
     public Button getBtnRegistrarme() {
         return btnRegistrarme;
@@ -90,5 +91,13 @@ public class Info implements Serializable {
 
     public void setGustos(String[] gustos) {
         this.gustos = gustos;
+    }
+
+    public String[] getRedes() {
+        return redes;
+    }
+
+    public void setRedes(String[] redes) {
+        this.redes = redes;
     }
 }

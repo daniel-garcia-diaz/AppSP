@@ -297,6 +297,58 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="170dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/degra"
+                android:fontFamily="@font/monse"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:backgroundTint="@null"
+                android:text="@string/Redes" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/face"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:fontFamily="@font/monse"
+                    android:text="Facebook" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/insta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:fontFamily="@font/monse"
+                    android:text="Instagram" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/tiktok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:fontFamily="@font/monse"
+                    android:text="Tiktok" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/twitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:fontFamily="@font/monse"
+                    android:text="Twitter" />
+            </com.google.android.material.chip.ChipGroup>
+
             <Button
                 android:id="@+id/Regist"
                 android:layout_width="170dp"

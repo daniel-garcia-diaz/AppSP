@@ -1,6 +1,7 @@
 package com.example.mysplash;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.PatternsCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,12 +43,18 @@ public class Registro extends AppCompatActivity {
     private CheckBox perrito;
     private CheckBox gatito;
     private CheckBox otre;
+    private Chip facebook;
+    private Chip insta;
+    private Chip tiktok;
+    private Chip twitter;
     public static final String archivo = "registro.json";
     private static final String TAG = "Registro";
 
     Info info = null;
     Gson gson = null;
     String json = null;
+    String usr = null;
+    String mail = null;
     String mensaje = null;
     List<Info> list = new ArrayList<Info>();
 
@@ -69,7 +77,10 @@ public class Registro extends AppCompatActivity {
         perrito = findViewById(R.id.Perrito);
         gatito = findViewById(R.id.Gatito);
         otre = findViewById(R.id.Otre);
-        //addListeners();
+        facebook = findViewById(R.id.face);
+        insta = findViewById(R.id.insta);
+        tiktok = findViewById(R.id.tiktok);
+        twitter = findViewById(R.id.twitter);
         Leer();
         json2List(json);
 
@@ -93,6 +104,8 @@ public class Registro extends AppCompatActivity {
                 info.setEmail(String.valueOf(email.getText()));
                 info.setContra(SHA.bytesToHex(SHA.createSha1(String.valueOf(contra.getText()))));
                 info.setUser(String.valueOf(user.getText()));
+                usr = String.valueOf(user.getText());
+                mail = String.valueOf(email.getText());
 
                 String[] gustes  = new String[3];
                 if (perrito.isChecked()==true){
@@ -114,6 +127,33 @@ public class Registro extends AppCompatActivity {
                     gustes[2]="Vacio";
                 }
                 info.setGustos(gustes);
+
+                String[] red = new String[4];
+                if(facebook.isChecked()==true){
+                    red[0]="Facebook";
+                }
+                else{
+                    red[0]="Vacio";
+                }
+                if(insta.isChecked()==true){
+                    red[1]="Instagram";
+                }
+                else{
+                    red[1]="Vacio";
+                }
+                if(tiktok.isChecked()==true){
+                    red[2]="TikTok";
+                }
+                else{
+                    red[2]="Vacio";
+                }
+                if(twitter.isChecked()==true){
+                    red[3]="Twitter";
+                }
+                else{
+                    red[3]="Vacio";
+                }
+                info.setRedes(red);
 
                 if (masculino.isChecked()==true){
                     info.setSexo(String.valueOf(masculino.getText()));
@@ -148,6 +188,15 @@ public class Registro extends AppCompatActivity {
                     Toast.makeText( getApplicationContext() , "Campo de usuario vacio" , Toast.LENGTH_LONG ).show();
                     return;
                 }
+                if (valuser(list, usr)){
+                    Toast.makeText( getApplicationContext() , "El nombre de usuraio no está disponibe" , Toast.LENGTH_LONG ).show();
+                    return;
+                }
+                if(!PatternsCompat.EMAIL_ADDRESS.matcher(mail).matches()){
+                    Toast.makeText( getApplicationContext() , "Error de sintaxis en el mail" , Toast.LENGTH_LONG ).show();
+                    return;
+                }
+
                 list2Json(info, list);
             }
         });
@@ -233,6 +282,15 @@ public class Registro extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+    public boolean valuser(List<Info>list, String user){
+        Boolean u = Boolean.FALSE;
+        for (Info info1 : list){
+            if(info1.getUser().equals(user)){
+                u = Boolean.TRUE;
+            }
+        }
+        return u;
     }
 
     public boolean Leer(){
