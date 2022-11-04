@@ -253,12 +253,11 @@ public class Registro extends AppCompatActivity {
         else
         {
             Log.d(TAG, json);
+            writeFile(json);
         }
         Toast.makeText(getApplicationContext(), "Registro Exitoso", Toast.LENGTH_LONG).show();
-        writeFile(json);
         Intent intent = new Intent(Registro.this, Login.class);
         startActivity(intent);
-        finish();
     }
 
     private boolean writeFile(String text)

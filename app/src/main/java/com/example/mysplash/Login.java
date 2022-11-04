@@ -27,11 +27,11 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-    List<Info> list;
-    String TAG = "mensaje";
-    String json = null;
-    String usuario;
-    String pass;
+    private List<Info> list;
+    public static String TAG = "mensaje";
+    public static String json = null;
+    public static String usuario;
+    public static String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

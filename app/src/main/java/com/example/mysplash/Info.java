@@ -1,16 +1,7 @@
 package com.example.mysplash;
 
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioButton;
+public class Info {
 
-import java.io.Serializable;
-
-public class Info implements Serializable {
-
-
-    private Button btnRegistrarme;
     private String nomCompleto;
     private String email;
     private String telefono;
@@ -20,14 +11,6 @@ public class Info implements Serializable {
     private String sexo;
     private String[] gustos;
     private String[] redes;
-
-    public Button getBtnRegistrarme() {
-        return btnRegistrarme;
-    }
-
-    public void setBtnRegistrarme(Button btnRegistrarme) {
-        this.btnRegistrarme = btnRegistrarme;
-    }
 
     public String getNomCompleto() {
         return nomCompleto;
