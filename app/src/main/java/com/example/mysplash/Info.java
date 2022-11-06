@@ -1,6 +1,8 @@
 package com.example.mysplash;
 
-public class Info {
+import java.io.Serializable;
+
+public class Info implements Serializable {
 
     private String nomCompleto;
     private String email;
@@ -11,6 +13,10 @@ public class Info {
     private String sexo;
     private String[] gustos;
     private String[] redes;
+
+    public Info(){
+
+    }
 
     public String getNomCompleto() {
         return nomCompleto;

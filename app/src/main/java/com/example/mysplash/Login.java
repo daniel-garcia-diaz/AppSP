@@ -17,17 +17,19 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-    private List<Info> list;
+    public static List<Info> list;
     public static String TAG = "mensaje";
     public static String json = null;
     public static String usuario;
@@ -81,6 +83,7 @@ public class Login extends AppCompatActivity {
         for (Info info : list){
             if(info.getUser().equals(usuario) && info.getContra().equals(pass)){
                 Intent intent = new Intent(Login.this, Principal.class);
+                intent.putExtra("Info", info);
                 startActivity(intent);
                 ingresar = Boolean.TRUE;
             }
