@@ -5,13 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Principal extends AppCompatActivity {
 
+    private ListView listView;
+    private List<String>list;;
+
     String aux = null;
-    Info info = null;
+    public static Info info = null;
     TextView textView;
     Object object = null;
 
@@ -44,10 +52,18 @@ public class Principal extends AppCompatActivity {
                 if (object != null) {
                     if (object instanceof Info) {
                         info = (Info) object;
-                        textView.setText("Bienvenido  " + info.getUser());
+                        textView.setText( info.getUser());
                     }
                 }
             }
         }
+        listView = (ListView) findViewById(R.id.listViewId);
+        list = new ArrayList<String>();
+        for( int i = 0; i < 100; i++)
+        {
+            list.add( String.format( "Contraseña %d" , i + 1 ) );
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.activity_lista,R.id.EditTextContra, list );
+        listView.setAdapter(arrayAdapter);
     }
 }
