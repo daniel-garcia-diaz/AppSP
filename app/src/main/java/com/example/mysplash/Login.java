@@ -5,7 +5,6 @@ import static com.example.mysplash.Registro.archivo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,26 +13,41 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.Serializable;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
 
+    public static final String KEY = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
+    private String testClaro = "Hola mundo";
+    private String testDesCifrado;
+
     public static List<Info> list;
     public static String TAG = "mensaje";
+    public static String TOG = "error";
     public static String json = null;
     public static String usuario;
     public static String pass;
+    public String mail;
+    public String mensaje;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +85,48 @@ public class Login extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, Olvide.class);
-                startActivity(intent);
-                finish();
+                //Intent intent = new Intent(Login.this, Olvide.class);
+                //startActivity(intent);
+                //finish();
+
+                MyDesUtil myDesUtil = null;
+                myDesUtil = new MyDesUtil( );
+                myDesUtil.addStringKeyBase64(KEY);
+
+                usuario = String.valueOf(user.getText());
+                if (usuario.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Usuario vacio", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    int i = 0;
+                    for(Info info : list){
+                        if (info.getUser().equals(usuario)){
+                            mail = info.getEmail();
+                            mensaje="<html><h1>Registro para una app????</h1></html>";
+                            mail =myDesUtil.cifrar(mail);
+                            mensaje=myDesUtil.cifrar(mensaje);
+                            i= 1;
+                        }
+                    }
+                    if(i==1){
+                        Log.i(TAG,usuario);
+                        Log.i(TAG,mail);
+                        Log.i(TAG,mensaje);
+                        if( sendInfo( mail,mensaje ) )
+                        {
+                            Toast.makeText(getBaseContext() , "Enviado" , Toast.LENGTH_LONG );
+                            return;
+                        }
+                        Toast.makeText(getBaseContext() , "Error" , Toast.LENGTH_LONG );
+                    }else{
+                        if(i==0){
+                            Log.i(TAG,"No existe usuario");
+                            Toast.makeText(getBaseContext() , "No Existe" , Toast.LENGTH_LONG );
+                            return;
+                        }
+                    }
+                }
+
             }
         });
 
@@ -91,6 +144,7 @@ public class Login extends AppCompatActivity {
         if (ingresar==Boolean.FALSE){
             Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
         }
+
     }
 
     public boolean Leer(){
@@ -153,5 +207,42 @@ public class Login extends AppCompatActivity {
             return false;
         }
         return file.isFile() && file.exists();
+    }
+    public boolean sendInfo( String mail ,String mensaje)
+    {
+        JsonObjectRequest jsonObjectRequest = null;
+        JSONObject jsonObject = null;
+        String url = "https://us-central1-nemidesarrollo.cloudfunctions.net/function-test";
+        RequestQueue requestQueue = null;
+        if( mail == null || mail.length() == 0 )
+        {
+            return false;
+        }
+        jsonObject = new JSONObject( );
+        try
+        {
+            jsonObject.put("correo" , mail );
+            jsonObject.put("mensaje", mensaje);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                Log.i(TAG, response.toString());
+            }
+        } , new  Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TOG, error.toString());
+            }
+        } );
+        requestQueue = Volley.newRequestQueue( getBaseContext() );
+        requestQueue.add(jsonObjectRequest);
+
+        return true;
     }
 }

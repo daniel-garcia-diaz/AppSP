@@ -1,6 +1,8 @@
 package com.example.mysplash;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Info implements Serializable {
 
@@ -13,6 +15,8 @@ public class Info implements Serializable {
     private String sexo;
     private String[] gustos;
     private String[] redes;
+    private List<Info2>contraseñas = new ArrayList<>();
+
 
     public Info(){
 
@@ -88,5 +92,12 @@ public class Info implements Serializable {
 
     public void setRedes(String[] redes) {
         this.redes = redes;
+    }
+
+    public List<Info2> getContraseñas(){
+        return contraseñas;
+    }
+    public void setContraseñas(List<Info2>contraseñas){
+        this.contraseñas = contraseñas;
     }
 }

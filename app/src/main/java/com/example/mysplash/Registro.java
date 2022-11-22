@@ -57,11 +57,15 @@ public class Registro extends AppCompatActivity {
     String mail = null;
     String mensaje = null;
     List<Info> list = new ArrayList<Info>();
+    List<Info2> lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+        lista = new ArrayList<>();
+        Info2 info2 = null;
 
         nomCompleto = findViewById(R.id.EditNombre);
         edad = findViewById(R.id.EditEdad);
@@ -196,7 +200,7 @@ public class Registro extends AppCompatActivity {
                     Toast.makeText( getApplicationContext() , "Error de sintaxis en el mail" , Toast.LENGTH_LONG ).show();
                     return;
                 }
-
+                info.setContraseñas(lista);
                 list2Json(info, list);
             }
         });
