@@ -78,6 +78,7 @@ public class Login extends AppCompatActivity {
 
                 usuario = String.valueOf(user.getText());
                 pass = SHA.bytesToHex(SHA.createSha1(String.valueOf(contra.getText())));
+                //pass = String.valueOf(contra.getText());
                 Entrar(usuario, pass);
             }
         });

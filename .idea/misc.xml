@@ -26,9 +26,10 @@
         <entry key="app/src/main/res/layout/activity_lista.xml" value="0.26855123674911663" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1888916015625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23177083333333334" />
-        <entry key="app/src/main/res/layout/activity_olvide.xml" value="0.2011273149131001" />
-        <entry key="app/src/main/res/layout/activity_principal.xml" value="0.19485845740096686" />
+        <entry key="app/src/main/res/layout/activity_olvide.xml" value="0.1796116504854369" />
+        <entry key="app/src/main/res/layout/activity_principal.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_registro.xml" value="0.22641509433962265" />
+        <entry key="app/src/main/res/layout/pop.xml" value="0.1761904761904762" />
         <entry key="app/src/main/res/layout/popagregar.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/popedita.xml" value="0.15715579710144928" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.4977630615234375" />

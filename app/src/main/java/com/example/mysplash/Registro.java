@@ -49,6 +49,8 @@ public class Registro extends AppCompatActivity {
     private Chip twitter;
     public static final String archivo = "registro.json";
     private static final String TAG = "Registro";
+    public static final String KEY = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
+    public MyDesUtil myDesUtil= new MyDesUtil().addStringKeyBase64(KEY);
 
     Info info = null;
     Gson gson = null;
@@ -307,7 +309,7 @@ public class Registro extends AppCompatActivity {
         try {
             fileInputStream = new FileInputStream(file);
             fileInputStream.read(bytes);
-            json=new String(bytes);
+            json = new String(bytes);
             Log.d(TAG,json);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
