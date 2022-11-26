@@ -1,6 +1,7 @@
 package com.example.mysplash;
 
 import android.content.Context;
+import android.media.Image;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,14 +59,12 @@ public class MyAdapter extends BaseAdapter implements Serializable {
     public View getView(int i, View view, ViewGroup viewGroup) {
         TextView textView = null;
         TextView textView1 = null;
-        ImageView imageView = null;
+        ImageView imageView =  null;
         view = layoutInflater.inflate(R.layout.activity_lista, null);
-        textView= view.findViewById(R.id.textView19);
-        textView1=view.findViewById(R.id.textView20);
+        textView = view.findViewById(R.id.textView19);
+        textView1 = view.findViewById(R.id.textView20);
         textView1.setText(String.valueOf(list.get(i).getContraContra()));
         textView.setText(String.valueOf(list.get(i).getUsuarioContra()));
-        //imageView = view.findViewById(R.id.imageView4);
-        //imageView.setImageResource(list.get(i).getImg());
         return view;
     }
 }

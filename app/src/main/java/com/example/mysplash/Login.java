@@ -85,47 +85,9 @@ public class Login extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(Login.this, Olvide.class);
-                //startActivity(intent);
-                //finish();
-
-                MyDesUtil myDesUtil = null;
-                myDesUtil = new MyDesUtil( );
-                myDesUtil.addStringKeyBase64(KEY);
-
-                usuario = String.valueOf(user.getText());
-                if (usuario.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Usuario vacio", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    int i = 0;
-                    for(Info info : list){
-                        if (info.getUser().equals(usuario)){
-                            mail = info.getEmail();
-                            mensaje="<html><h1>Registro para una app????</h1></html>";
-                            mail =myDesUtil.cifrar(mail);
-                            mensaje=myDesUtil.cifrar(mensaje);
-                            i= 1;
-                        }
-                    }
-                    if(i==1){
-                        Log.i(TAG,usuario);
-                        Log.i(TAG,mail);
-                        Log.i(TAG,mensaje);
-                        if( sendInfo( mail,mensaje ) )
-                        {
-                            Toast.makeText(getBaseContext() , "Enviado" , Toast.LENGTH_LONG );
-                            return;
-                        }
-                        Toast.makeText(getBaseContext() , "Error" , Toast.LENGTH_LONG );
-                    }else{
-                        if(i==0){
-                            Log.i(TAG,"No existe usuario");
-                            Toast.makeText(getBaseContext() , "No Existe" , Toast.LENGTH_LONG );
-                            return;
-                        }
-                    }
-                }
+                Intent intent = new Intent(Login.this, Olvide.class);
+                startActivity(intent);
+                finish();
 
             }
         });
@@ -207,42 +169,5 @@ public class Login extends AppCompatActivity {
             return false;
         }
         return file.isFile() && file.exists();
-    }
-    public boolean sendInfo( String mail ,String mensaje)
-    {
-        JsonObjectRequest jsonObjectRequest = null;
-        JSONObject jsonObject = null;
-        String url = "https://us-central1-nemidesarrollo.cloudfunctions.net/function-test";
-        RequestQueue requestQueue = null;
-        if( mail == null || mail.length() == 0 )
-        {
-            return false;
-        }
-        jsonObject = new JSONObject( );
-        try
-        {
-            jsonObject.put("correo" , mail );
-            jsonObject.put("mensaje", mensaje);
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response)
-            {
-                Log.i(TAG, response.toString());
-            }
-        } , new  Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TOG, error.toString());
-            }
-        } );
-        requestQueue = Volley.newRequestQueue( getBaseContext() );
-        requestQueue.add(jsonObjectRequest);
-
-        return true;
     }
 }

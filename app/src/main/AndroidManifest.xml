@@ -14,9 +14,6 @@
         android:theme="@style/Theme.MySplash"
         tools:targetApi="31">
         <activity
-            android:name=".Agregar"
-            android:exported="false" />
-        <activity
             android:name=".Lista"
             android:exported="false" />
         <activity
