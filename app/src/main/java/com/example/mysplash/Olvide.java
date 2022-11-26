@@ -96,7 +96,7 @@ public class Olvide extends AppCompatActivity {
     {
         JsonObjectRequest jsonObjectRequest = null;
         JSONObject jsonObject = null;
-        String url = "https://us-central1-nemidesarrollo.cloudfunctions.net/function-test";
+        String url = "https://us-central1-nemidesarrollo.cloudfunctions.net/envio_correo";
         RequestQueue requestQueue = null;
         if( correo == null || correo.length() == 0 )
         {
