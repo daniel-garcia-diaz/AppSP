@@ -162,7 +162,7 @@ public class Principal extends AppCompatActivity {
                 String user= String.valueOf(editU.getText());
                 String pass = String.valueOf(editC.getText());
 
-               if (user.equals("") || pass.equals("")){
+               if (user.length()==0 || pass.length()==0){
                     Toast.makeText(getApplicationContext(),"Campos Vacios", Toast.LENGTH_LONG).show();
                 }
                 else{
@@ -181,7 +181,9 @@ public class Principal extends AppCompatActivity {
                     List2Json(info,list);
                     Toast.makeText(getApplicationContext(),"Contraseña Agregada, vuelve a iniciar sesión para mostrar los cambios", Toast.LENGTH_LONG).show();
                }
-                dialog.dismiss();
+                Intent intent = new Intent(Principal.this, Login.class);
+                startActivity(intent);
+                finish();
 
             }
 
