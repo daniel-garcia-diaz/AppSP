@@ -93,17 +93,18 @@ public class Olvide extends AppCompatActivity {
                         Log.i(TAG, correo);
                         Log.i(TAG, msj);
                         if (Enviar(correo, msj)) {
-                            Toast.makeText(getBaseContext(), "Se envío mensaje", Toast.LENGTH_LONG);
+                            Toast.makeText(getBaseContext(), "Se envío mensaje", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(Olvide.this, Login.class);
+                            startActivity(intent);
+                            finish();
                             return;
                         }
                         Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_LONG);
-                        Intent intent = new Intent(Olvide.this, Login.class);
-                        startActivity(intent);
-                        finish();
+
                     } else {
                         if (i == 0) {
                             Log.i(TAG, "Sin usuario");
-                            Toast.makeText(getBaseContext(), "No existe usuario", Toast.LENGTH_LONG);
+                            Toast.makeText(getBaseContext(), "No existe usuario", Toast.LENGTH_LONG).show();
                             return;
                         }
                     }
@@ -163,6 +164,8 @@ public class Olvide extends AppCompatActivity {
         else
         {
             Log.d(TAG, json);
+            json = myDesUtil.cifrar(json);
+            Log.d(TAG, json);
             writeFile(json);
         }
     }
@@ -174,7 +177,7 @@ public class Olvide extends AppCompatActivity {
             fileOutputStream = new FileOutputStream( file );
             fileOutputStream.write( text.getBytes(StandardCharsets.UTF_8) );
             fileOutputStream.close();
-            Log.d(TAG, "Hola");
+            Log.d(TAG, "Escrito");
             return true;
         }
         catch (FileNotFoundException e)

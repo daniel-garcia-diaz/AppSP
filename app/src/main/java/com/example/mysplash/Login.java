@@ -36,6 +36,7 @@ import java.util.List;
 public class Login extends AppCompatActivity {
 
     public static final String KEY = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
+    public MyDesUtil myDesUtil= new MyDesUtil().addStringKeyBase64(KEY);
     private String testClaro = "Hola mundo";
     private String testDesCifrado;
 
@@ -122,6 +123,8 @@ public class Login extends AppCompatActivity {
             fileInputStream = new FileInputStream(file);
             fileInputStream.read(bytes);
             json=new String(bytes);
+            Log.d(TAG,json);
+            json = myDesUtil.desCifrar(json);
             Log.d(TAG,json);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

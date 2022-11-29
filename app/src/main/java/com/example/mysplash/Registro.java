@@ -259,6 +259,8 @@ public class Registro extends AppCompatActivity {
         else
         {
             Log.d(TAG, json);
+            json = myDesUtil.cifrar(json);
+            Log.d(TAG, json);
             writeFile(json);
         }
         Toast.makeText(getApplicationContext(), "Registro Exitoso", Toast.LENGTH_LONG).show();
@@ -310,6 +312,8 @@ public class Registro extends AppCompatActivity {
             fileInputStream = new FileInputStream(file);
             fileInputStream.read(bytes);
             json = new String(bytes);
+            Log.d(TAG,json);
+            json = myDesUtil.desCifrar(json);
             Log.d(TAG,json);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

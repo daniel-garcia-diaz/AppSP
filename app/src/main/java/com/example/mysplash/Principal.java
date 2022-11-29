@@ -47,6 +47,7 @@ public class Principal extends AppCompatActivity {
     public static Info info = null;
     EditText editU, editC;
     Object object = null;
+    public MyDesUtil myDesUtil= new MyDesUtil().addStringKeyBase64(Registro.KEY);
 
 
     @Override
@@ -273,6 +274,8 @@ public class Principal extends AppCompatActivity {
         }
         else
         {
+            Log.d(TAG, json);
+            json = myDesUtil.cifrar(json);
             Log.d(TAG, json);
             writeFile(json);
         }
