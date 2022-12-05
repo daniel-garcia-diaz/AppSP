@@ -125,7 +125,7 @@ public class Login extends AppCompatActivity {
             json=new String(bytes);
             Log.d(TAG,json);
             json = myDesUtil.desCifrar(json);
-            Log.d(TAG,json);
+            //Log.d(TAG,json);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

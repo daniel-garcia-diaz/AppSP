@@ -223,9 +223,11 @@ public class Principal extends AppCompatActivity {
                     info = (Info) object;
                     info.setContraseñas(lista);
                     List2Json(info,list);
-                    Toast.makeText(getApplicationContext(),"Contraseña Editada", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Contraseña Editada, vuelve a iniciar sesión para mostrar los cambios", Toast.LENGTH_LONG).show();
                 }
-                dialog.dismiss();
+                Intent intent = new Intent(Principal.this, Login.class);
+                startActivity(intent);
+                finish();
 
             }
 
