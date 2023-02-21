@@ -358,6 +358,7 @@
                 android:background="@drawable/degra"
                 android:fontFamily="@font/monse"
                 android:text="@string/Regist"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:backgroundTint="@null" />
 

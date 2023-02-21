@@ -1,11 +1,15 @@
 package com.example.mysplash;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.PatternsCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -76,7 +80,6 @@ public class Registro extends AppCompatActivity {
         contra = findViewById(R.id.EditContra);
         user = findViewById(R.id.EditUser);
         btnRegistrarme = findViewById(R.id.Regist);
-        btnRegresar = findViewById(R.id.btnRegresar);
         masculino = findViewById(R.id.Masculino);
         femenino = findViewById(R.id.Femenino);
         otro = findViewById(R.id.Otro);
@@ -89,15 +92,6 @@ public class Registro extends AppCompatActivity {
         twitter = findViewById(R.id.twitter);
         Leer();
         json2List(json);
-
-        btnRegresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Registro.this, Login.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         btnRegistrarme.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -336,6 +330,28 @@ public class Registro extends AppCompatActivity {
             return false;
         }
         return file.isFile() && file.exists();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        boolean flag = false;
+        flag = super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu2 ,  menu);
+        return flag;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if(id==R.id.regresar){
+            Intent intent4 = new Intent(Registro.this, Login.class);
+            startActivity(intent4);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
 }

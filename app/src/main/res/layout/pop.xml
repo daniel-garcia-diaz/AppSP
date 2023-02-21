@@ -111,6 +111,7 @@
                 android:background="@drawable/degra"
                 android:fontFamily="@font/monse"
                 android:text="Guardar"
+                android:textColor="@color/white"
                 app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

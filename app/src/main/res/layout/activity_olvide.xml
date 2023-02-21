@@ -16,23 +16,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/degra2">
 
-            <Button
-                android:id="@+id/btnRegresaaar"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Regresar"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="40sp"
-                app:backgroundTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.037" />
-
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
@@ -122,11 +105,12 @@
 
             <Button
                 android:id="@+id/btnRecupera"
-                android:layout_width="wrap_content"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/degra"
                 android:fontFamily="@font/monse"
                 android:text="Recuperar Contraseña"
+                android:textColor="@color/white"
                 app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

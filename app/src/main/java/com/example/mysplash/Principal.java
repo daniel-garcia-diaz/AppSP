@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.mysplash.API.Music;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -55,27 +56,9 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        Button btnRegresar = findViewById(R.id.btnRegresaar);
-        Button btnagregar = findViewById(R.id.btnmas);
         Button edita = findViewById(R.id.btnEditar);
         Button elimina = findViewById(R.id.btnEmilinar);
 
-
-        btnRegresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Principal.this, Login.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-     btnagregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Agrega();
-            }
-        });
 
      edita.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -259,6 +242,16 @@ public class Principal extends AppCompatActivity {
         if (id==R.id.item3){
             Intent intent3 = new Intent(Principal.this, Login.class);
             startActivity(intent3);
+            return true;
+        }
+        if(id==R.id.regresar){
+            Intent intent4 = new Intent(Principal.this, Login.class);
+            startActivity(intent4);
+            return true;
+        }
+        if(id==R.id.musica){
+            Intent intent4 = new Intent(Principal.this, Music.class);
+            startActivity(intent4);
             return true;
         }
         return super.onOptionsItemSelected(item);
