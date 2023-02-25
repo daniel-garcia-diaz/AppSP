@@ -6,20 +6,45 @@ import java.util.List;
 
 public class Info implements Serializable {
 
+    private String user;
+    private int id_user;
+    private String contra;
     private String nomCompleto;
     private String email;
     private String telefono;
     private String edad;
-    private String user;
-    private String contra;
     private String sexo;
     private String[] gustos;
+
     private String[] redes;
     private List<Info2>contraseñas = new ArrayList<>();
 
 
     public Info(){
 
+    }
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
     }
 
     public String getNomCompleto() {
@@ -52,22 +77,6 @@ public class Info implements Serializable {
 
     public void setEdad(String edad) {
         this.edad = edad;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getContra() {
-        return contra;
-    }
-
-    public void setContra(String contra) {
-        this.contra = contra;
     }
 
     public String getSexo() {

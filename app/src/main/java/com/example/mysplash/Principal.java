@@ -1,5 +1,6 @@
 package com.example.mysplash;
 
+import static com.example.mysplash.BD.BDService.TABLE_CONTRAS;
 import static com.example.mysplash.Registro.archivo;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +25,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.mysplash.API.Music;
+import com.example.mysplash.BD.BDContras;
+import com.example.mysplash.BD.BDService;
+import com.example.mysplash.BD.UserContract;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -43,9 +48,9 @@ public class Principal extends AppCompatActivity {
     public static String json = null;
     public static ListView listView;
     private List<Info2> lista;
-    public int pos = 0;
-
     public static Info info = null;
+    Info2 info2 = new Info2();
+    public int pos = 0;
     EditText editU, editC;
     Object object = null;
     public MyDesUtil myDesUtil= new MyDesUtil().addStringKeyBase64(Registro.KEY);
@@ -82,19 +87,16 @@ public class Principal extends AppCompatActivity {
         edita.setVisibility(View.GONE);
         elimina.setVisibility(View.GONE);
 
+        BDContras bdContras = new BDContras(Principal.this);
+        lista = bdContras.getPass(info.getId_user());
 
-        list = new ArrayList<>();
-        list = Login.list;;
         listView = (ListView) findViewById(R.id.listViewId);
-        lista = new ArrayList<Info2>();
-        lista = info.getContraseñas();
         MyAdapter myAdapter = new MyAdapter(lista, getBaseContext());
         listView.setAdapter(myAdapter);
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                info2 = lista.get(i);
                 pos = i;
                 toast( i );
                 edita.setVisibility(view.VISIBLE);
@@ -105,16 +107,16 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                lista.remove(pos);
-                Object object = null;
-                Info info = null;
-                List<Info> list =new ArrayList<Info>();
-                object = intent.getExtras().get("Info");
-                info = (Info) object;
-                info.setContraseñas(lista);
-                List2Json(info,list);
-                Toast.makeText(getApplicationContext(),"Contraseña Eliminada", Toast.LENGTH_LONG).show();
-
+                BDContras bdContras = new BDContras(Principal.this);
+                boolean id = bdContras.eliminarContra(info.getId_user(),info2.getUsuarioContra(),info2.getContraContra());
+                if(id){
+                    lista = bdContras.getPass(info.getId_user());
+                    MyAdapter myAdapter = new MyAdapter(lista, getBaseContext());
+                    listView.setAdapter(myAdapter);
+                    Toast.makeText(getApplicationContext(),"Contraseña Eliminada", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error al Eliminar", Toast.LENGTH_LONG).show();
+                }
                 edita.setVisibility(View.GONE);
                 elimina.setVisibility(View.GONE);
             }
@@ -131,7 +133,7 @@ public class Principal extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         final View Popview = getLayoutInflater().inflate(R.layout.pop, null);
 
-         Button btn = Popview.findViewById(R.id.btnGuardar);
+        Button btn = Popview.findViewById(R.id.btnGuardar);
         editU = Popview.findViewById(R.id.EditUsrContra);
         editC = Popview.findViewById(R.id.EditContraContra);
 
@@ -150,27 +152,26 @@ public class Principal extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Campos Vacios", Toast.LENGTH_LONG).show();
                 }
                 else{
-                     Info2 info2 = null;
-                    Object object = null;
-                    Info info = null;
-                    Intent intent = getIntent();
-                    object = intent.getExtras().get("Info");
-                    info = (Info) object;
-                    lista = info.getContraseñas();
-                    info2 = new Info2();
-                    info2.setContraContra(String.valueOf(editC.getText()));
-                    info2.setUsuarioContra(String.valueOf(editU.getText()));
-                    lista.add(info2);
-                    info.setContraseñas(lista);
-                    List2Json(info,list);
-                    Toast.makeText(getApplicationContext(),"Contraseña Agregada, vuelve a iniciar sesión para mostrar los cambios", Toast.LENGTH_LONG).show();
+
+                   Info2 info2 = new Info2();
+                   info2.setContraContra(pass);
+                   info2.setUsuarioContra(user);
+                   info2.setId_user(info.getId_user());
+
+                   BDContras bdContras = new BDContras(Principal.this);
+                   long id = bdContras.savePass(info2);
+                   if (id > 0){
+                       lista = bdContras.getPass(info.getId_user());
+                       MyAdapter myAdapter = new MyAdapter(lista, getBaseContext());
+                       listView.setAdapter(myAdapter);
+                       Toast.makeText(Principal.this, "Contraseña Agregada",Toast.LENGTH_LONG).show();
+                   }else
+                   {
+                       Toast.makeText(Principal.this, "No se ha podido Agregar la Contraseña",Toast.LENGTH_LONG).show();
+                   }
                }
-                Intent intent = new Intent(Principal.this, Login.class);
-                startActivity(intent);
-                finish();
-
+                dialog.cancel();
             }
-
         });
     }
 
@@ -198,20 +199,18 @@ public class Principal extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Campos Vacios", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Intent intent = getIntent();
-                    lista.get(pos).setContraContra(String.valueOf(editC.getText()));
-                    lista.get(pos).setUsuarioContra(String.valueOf(editU.getText()));
-                    List<Info> list =new ArrayList<Info>();
-                    object = intent.getExtras().get("Info");
-                    info = (Info) object;
-                    info.setContraseñas(lista);
-                    List2Json(info,list);
-                    Toast.makeText(getApplicationContext(),"Contraseña Editada, vuelve a iniciar sesión para mostrar los cambios", Toast.LENGTH_LONG).show();
+                    BDContras bdContras = new BDContras(Principal.this);
+                    boolean id = bdContras.EditarContra(user,pass,info.getId_user(),info2.getId_pass());
+                    if(id){
+                        lista = bdContras.getPass(info.getId_user());
+                        MyAdapter myAdapter = new MyAdapter(lista, getBaseContext());
+                        listView.setAdapter(myAdapter);
+                        Toast.makeText(getApplicationContext(), "Contraseña Editada", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Error al modificar", Toast.LENGTH_LONG).show();
+                    }
                 }
-                Intent intent = new Intent(Principal.this, Login.class);
-                startActivity(intent);
-                finish();
-
+                dialog.cancel();
             }
 
         });
@@ -255,51 +254,6 @@ public class Principal extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
-    public void List2Json(Info info,List<Info> list){
-        Gson gson =null;
-        String json= null;
-        gson =new Gson();
-        list.add(info);
-        json =gson.toJson(list, ArrayList.class);
-        if (json == null)
-        {
-            Log.d(TAG, "Error json");
-        }
-        else
-        {
-            Log.d(TAG, json);
-            json = myDesUtil.cifrar(json);
-            Log.d(TAG, json);
-            writeFile(json);
-        }
-
-    }
-    private boolean writeFile(String text){
-        File file =null;
-        FileOutputStream fileOutputStream =null;
-        try{
-            file=getFile();
-            fileOutputStream = new FileOutputStream( file );
-            fileOutputStream.write( text.getBytes(StandardCharsets.UTF_8) );
-            fileOutputStream.close();
-            Log.d(TAG, "Hola");
-            return true;
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    private File getFile(){
-        return new File(getDataDir(),archivo);
-    }
-
 }
 
