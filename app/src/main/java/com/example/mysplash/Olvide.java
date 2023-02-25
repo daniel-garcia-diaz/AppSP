@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Olvide extends AppCompatActivity {
 
@@ -72,7 +73,14 @@ public class Olvide extends AppCompatActivity {
                     } else {
                         correo = user.getEmail();
                         pass = user.getContra();
-                        nuevapass = String.format("%d", (int) (Math.random() * 1000));
+                        //nuevapass = String.format("%d", (int) (Math.random() * 1000));
+                        nuevapass = "";
+                        for (int i = 0; i < 5; i++){
+                            Random random = new Random();
+                            char ch = (char) (random.nextInt(26) + 'a');
+                            nuevapass += String.valueOf(ch);
+                        }
+                        nuevapass += String.format("%d",(int)(Math.random()*1000));
                         nueva2 = SHA.bytesToHex(SHA.createSha1(nuevapass));
                         msj = "<!DOCTYPE html>\n" +
                                 "<html lang=\"en\">\n" +
@@ -124,9 +132,13 @@ public class Olvide extends AppCompatActivity {
                         msj = myDesUtil.cifrar(msj);
                         boolean f = bdUsers.EditUser(usuario, nueva2);
                         if(f){
-                            if(Enviar(correo,msj)){
+                            if(Enviar(correo,msj))
+                            {
                                 Toast.makeText(getApplicationContext(), "Contraseña Enviada", Toast.LENGTH_LONG).show();
-                            }else{Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();}
+                                Intent intent = new Intent(Olvide.this, Login.class);
+                                startActivity(intent);
+                            }
+                            else{Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();}
 
                         }else{
                             Toast.makeText(getApplicationContext(), "Error al enviar correo", Toast.LENGTH_LONG).show();

@@ -190,25 +190,28 @@ public class Principal extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String user= String.valueOf(editU.getText());
                 String pass = String.valueOf(editC.getText());
-                Button edita = findViewById(R.id.btnEditar);
-                Button elimina = findViewById(R.id.btnEmilinar);
 
-                if (user.equals("") || pass.equals("")){
+              /*  if (user.equals("") || pass.equals("")){
                     Toast.makeText(getApplicationContext(),"Campos Vacios", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    BDContras bdContras = new BDContras(Principal.this);
-                    boolean id = bdContras.EditarContra(user,pass,info.getId_user(),info2.getId_pass());
-                    if(id){
-                        lista = bdContras.getPass(info.getId_user());
-                        MyAdapter myAdapter = new MyAdapter(lista, getBaseContext());
-                        listView.setAdapter(myAdapter);
-                        Toast.makeText(getApplicationContext(), "Contraseña Editada", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Error al modificar", Toast.LENGTH_LONG).show();
+
                     }
+                }*/
+
+                BDContras bdContras = new BDContras(Principal.this);
+                boolean id = bdContras.EditarContra(user,pass,info.getId_user(),info2.getId_pass());
+                if(id){
+                    lista = bdContras.getPass(info.getId_user());
+                    MyAdapter myAdapter = new MyAdapter(lista, getBaseContext());
+                    listView.setAdapter(myAdapter);
+                    Toast.makeText(getApplicationContext(), "Contraseña Editada", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Error al modificar", Toast.LENGTH_LONG).show();
                 }
                 dialog.cancel();
             }

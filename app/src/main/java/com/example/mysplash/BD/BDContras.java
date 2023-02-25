@@ -74,11 +74,17 @@ public class BDContras extends BDService{
     }
 
     public boolean EditarContra (String usuar,String contra,int id,int id_contra){
+
         boolean correcto = false;
         BDService bdService = new BDService(context);
         SQLiteDatabase sqLiteDatabase = bdService.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("contra", contra);
+        values.put("user", usuar);
+
         try{
-            sqLiteDatabase.execSQL("UPDATE " + TABLE_CONTRAS + " SET contra = '" + contra + "', user = '" +usuar+ "' WHERE id= '" + id + "' AND id_contra= '" +id_contra+ "'");
+            sqLiteDatabase.execSQL("UPDATE " + TABLE_CONTRAS + " SET pass = '" + contra + "', user = '" +usuar+ "' WHERE id= '" + id + "' AND id_pass = '" +id_contra+ "'");
             correcto = true;
         }catch(Exception ex){
             ex.toString();
@@ -97,7 +103,7 @@ public class BDContras extends BDService{
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
 
         try {
-            sqLiteDatabase.execSQL("DELETE FROM " + TABLE_CONTRAS + " WHERE id = '" + id + "' AND contra ='" +contra+ "' AND user = '" +usuar+ "'");
+            sqLiteDatabase.execSQL("DELETE FROM " + TABLE_CONTRAS + " WHERE id = '" + id + "' AND pass ='" +contra+ "' AND user = '" +usuar+ "'");
             correcto = true;
         } catch (Exception ex) {
             ex.toString();
