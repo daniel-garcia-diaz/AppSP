@@ -16,6 +16,10 @@ public class Info implements Serializable {
     private String sexo;
     private String[] gustos;
 
+    private double longitud;
+
+    private double latitud;
+
     private String[] redes;
     private List<Info2>contraseñas = new ArrayList<>();
 
@@ -101,6 +105,22 @@ public class Info implements Serializable {
 
     public void setRedes(String[] redes) {
         this.redes = redes;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
     }
 
     public List<Info2> getContraseñas(){

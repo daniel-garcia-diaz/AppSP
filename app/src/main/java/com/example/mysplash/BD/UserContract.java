@@ -54,6 +54,8 @@ public class UserContract implements Serializable {
                     "id_pass INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "pass TEXT NOT NULL," +
                     "user TEXT NOT NULL," +
+                    "long DOUBLE,"+
+                    "lat DOUBLE,"+
                     "id INTEGER NOT NULL)";
             return table;
         }
@@ -62,6 +64,8 @@ public class UserContract implements Serializable {
             ContentValues values = new ContentValues();
             values.put("pass", info2.getContraContra());
             values.put("user", info2.getUsuarioContra());
+            values.put("long", info2.getLongitud());
+            values.put("lat", info2.getLatitud());
             values.put("id", info2.getId_user());
 
             return values;

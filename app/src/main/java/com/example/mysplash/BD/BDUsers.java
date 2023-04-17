@@ -70,6 +70,7 @@ public class BDUsers extends BDService{
             info.setTelefono(cursor.getString(3));
             info.setEdad(cursor.getString(4));
             info.setSexo(cursor.getString(5));
+
             usuarios.add( info );
             cursor.moveToNext( );
         }

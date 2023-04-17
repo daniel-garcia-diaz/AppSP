@@ -28,6 +28,7 @@ import com.example.mysplash.API.Service;
 import com.example.mysplash.API.Result;
 import com.example.mysplash.Login;
 import com.example.mysplash.Olvide;
+import com.example.mysplash.Principal;
 import com.example.mysplash.R;
 
 
@@ -187,7 +188,7 @@ public class Music extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id==R.id.regresar){
-            Intent intent4 = new Intent(Music.this, Login.class);
+            Intent intent4 = new Intent(Music.this, Principal.class);
             startActivity(intent4);
             return true;
         }

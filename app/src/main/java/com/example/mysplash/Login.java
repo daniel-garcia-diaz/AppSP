@@ -2,9 +2,20 @@ package com.example.mysplash;
 
 import static com.example.mysplash.Registro.archivo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +45,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity  {
 
     public static final String KEY = "+4xij6jQRSBdCymMxweza/uMYo+o0EUg";
     public MyDesUtil myDesUtil= new MyDesUtil().addStringKeyBase64(KEY);
@@ -43,7 +54,6 @@ public class Login extends AppCompatActivity {
     public static List<Info> list;
     public static String usuario;
     public static String pass;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +96,6 @@ public class Login extends AppCompatActivity {
 
             }
         });
-
     }
     public void Entrar(String usuario, String pass){
 
@@ -106,4 +115,5 @@ public class Login extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
         }
     }
+
 }

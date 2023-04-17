@@ -8,7 +8,8 @@ public class Info2 implements Serializable {
     private String ContraContra;
     private int id_pass;
     private String UsuarioContra;
-
+    private double longitud;
+    private double latitud;
     private int id_user;
 
     public String getContraContra() {
@@ -41,5 +42,21 @@ public class Info2 implements Serializable {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
     }
 }

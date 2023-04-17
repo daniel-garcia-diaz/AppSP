@@ -51,7 +51,8 @@ public class MyAdapter extends BaseAdapter implements Serializable {
     }
 
     @Override
-    public long getItemId(int i) {
+    public long getItemId(int i)
+    {
         return i;
     }
 

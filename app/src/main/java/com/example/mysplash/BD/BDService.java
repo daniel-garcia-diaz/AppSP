@@ -37,6 +37,8 @@ public class BDService extends SQLiteOpenHelper {
         "id_pass INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "pass TEXT NOT NULL," +
                 "user TEXT NOT NULL," +
+                "long DOUBLE,"+
+                "lat DOUBLE,"+
                 "id INTEGER NOT NULL)");
     }
     @Override
