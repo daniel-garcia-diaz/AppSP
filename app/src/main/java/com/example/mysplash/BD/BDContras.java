@@ -68,6 +68,7 @@ public class BDContras extends BDService{
             info2.setLongitud(cursor.getDouble(3));
             info2.setLatitud(cursor.getDouble(4));
             info2.setId_user(cursor.getInt(5));
+            info2.setBytes(cursor.getBlob(6));
             contras.add(info2);
             cursor.moveToNext( );
         }

@@ -3,6 +3,10 @@ package com.example.mysplash;
 import static com.example.mysplash.BD.BDService.TABLE_CONTRAS;
 import static com.example.mysplash.Registro.archivo;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -13,10 +17,13 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -53,6 +60,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -65,7 +73,6 @@ public class Principal extends AppCompatActivity implements LocationListener{
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-
     private List<Info> list;
     public static String TAG = "Daniel";
     public static String json = null;
@@ -83,18 +90,24 @@ public class Principal extends AppCompatActivity implements LocationListener{
     public static Double longitud;
     private LocationManager locationManager;
 
+    protected ActivityResultLauncher<Intent> someActivityResultLauncher;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+        final View Popview = getLayoutInflater().inflate(R.layout.pop, null);
+
         startGps();
-        verificarPermisos();
+        verificarPermisoUbi();
+        takePhotoRegister();
 
         Button edita = findViewById(R.id.btnEditar);
         Button elimina = findViewById(R.id.btnEmilinar);
         Button ubi = findViewById(R.id.btnUbi);
+        imageView = Popview.findViewById(R.id.foto);
 
      edita.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -102,6 +115,8 @@ public class Principal extends AppCompatActivity implements LocationListener{
              Edita();
          }
      });
+
+
 
         Intent intent = getIntent();
         if( intent != null)
@@ -170,10 +185,10 @@ public class Principal extends AppCompatActivity implements LocationListener{
         Toast.makeText(getBaseContext(), lista.get(i).getContraContra(), Toast.LENGTH_SHORT);
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void verificarPermisos(){
+    private void verificarPermisoUbi(){
         int permisoUbi = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permisoUbi2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        int permisoCamara = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
 
        if ( permisoUbi == PackageManager.PERMISSION_GRANTED ){
             Toast.makeText(this, "Permiso Ubi ", Toast.LENGTH_SHORT).show();
@@ -185,6 +200,10 @@ public class Principal extends AppCompatActivity implements LocationListener{
         } else{
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},REQUEST_CODE);
         }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void verificarPermisoCamara(){
+        int permisoCamara = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if ( permisoCamara == PackageManager.PERMISSION_GRANTED ){
             Toast.makeText(this, "Permiso Camara ", Toast.LENGTH_SHORT).show();
         } else{
@@ -195,7 +214,7 @@ public class Principal extends AppCompatActivity implements LocationListener{
     public void Agrega(){
         dialogBuilder = new AlertDialog.Builder(this);
         final View Popview = getLayoutInflater().inflate(R.layout.pop, null);
-
+        verificarPermisoCamara();
 
         Button btn = Popview.findViewById(R.id.btnGuardar);
         Button tomarfoto = Popview.findViewById(R.id.tomarfoto);
@@ -209,20 +228,18 @@ public class Principal extends AppCompatActivity implements LocationListener{
         dialog = dialogBuilder.create();
         dialog.show();
 
-
         tomarfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
+                Intent cameraIntent = new Intent( android.provider.MediaStore.ACTION_IMAGE_CAPTURE );
+                someActivityResultLauncher.launch( cameraIntent );
             }
         });
 
         subirfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            seleccionar(v);
             }
         });
 
@@ -237,11 +254,15 @@ public class Principal extends AppCompatActivity implements LocationListener{
                     Toast.makeText(getApplicationContext(),"Campos Vacios", Toast.LENGTH_LONG).show();
                 }
                 else{
+                   Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                   ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                   bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                   byte[] byteArray = stream.toByteArray();
 
                    Info2 info2 = new Info2();
                    info2.setContraContra(pass);
                    info2.setUsuarioContra(user);
-
+                   info2.setBytes(byteArray);
                    info2.setId_user(info.getId_user());
 
                    BDContras bdContras = new BDContras(Principal.this);
@@ -261,7 +282,42 @@ public class Principal extends AppCompatActivity implements LocationListener{
         });
 
     }
-
+    public void takePhotoRegister( )
+    {
+        someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result)
+                    {
+                        if (result.getResultCode() == Activity.RESULT_OK)
+                        {
+                            Intent data = result.getData();
+                            if( data != null && data.getExtras() != null)
+                            {
+                                Bitmap photo = (Bitmap) data.getExtras().get( "data" );
+                                imageView.setImageBitmap(photo);
+                            }
+                        }
+                    }
+                });
+    }
+    public void seleccionar(View view){
+        cargar();
+    }
+    public void cargar(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/");
+        startActivityForResult(intent.createChooser(intent, "Seleccionar"),10);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Uri path=data.getData();
+            imageView.setImageURI(path);
+        }
+    }
     @Override
     public void onLocationChanged(@NonNull Location location)
     {
@@ -334,8 +390,14 @@ public class Principal extends AppCompatActivity implements LocationListener{
         final View Popview2 = getLayoutInflater().inflate(R.layout.pop, null);
 
         Button btn = Popview2.findViewById(R.id.btnGuardar);
+        Button tomarfoto = Popview2.findViewById(R.id.tomarfoto);
+        Button subirfoto = Popview2.findViewById(R.id.subirfoto);
         editU = Popview2.findViewById(R.id.EditUsrContra);
         editC = Popview2.findViewById(R.id.EditContraContra);
+
+
+        tomarfoto.setVisibility(View.GONE);
+        subirfoto.setVisibility(View.GONE);
 
         dialogBuilder.setView(Popview2);
         dialog = dialogBuilder.create();

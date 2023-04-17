@@ -39,7 +39,9 @@ public class BDService extends SQLiteOpenHelper {
                 "user TEXT NOT NULL," +
                 "long DOUBLE,"+
                 "lat DOUBLE,"+
-                "id INTEGER NOT NULL)");
+                "id INTEGER NOT NULL,"+
+                "bytes BLOB)");
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1 ){

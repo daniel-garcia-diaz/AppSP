@@ -11,6 +11,8 @@ public class Info2 implements Serializable {
     private double longitud;
     private double latitud;
     private int id_user;
+    private byte[] bytes;
+    private int imagen;
 
     public String getContraContra() {
         return ContraContra;
@@ -58,5 +60,21 @@ public class Info2 implements Serializable {
 
     public void setLatitud(double latitud) {
         this.latitud = latitud;
+    }
+
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
     }
 }

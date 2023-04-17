@@ -56,7 +56,8 @@ public class UserContract implements Serializable {
                     "user TEXT NOT NULL," +
                     "long DOUBLE,"+
                     "lat DOUBLE,"+
-                    "id INTEGER NOT NULL)";
+                    "id INTEGER NOT NULL"+
+                    "bytes BLOB)";
             return table;
         }
         public static ContentValues toContentValues(Info2 info2)
@@ -67,6 +68,7 @@ public class UserContract implements Serializable {
             values.put("long", info2.getLongitud());
             values.put("lat", info2.getLatitud());
             values.put("id", info2.getId_user());
+            values.put("bytes", info2.getBytes());
 
             return values;
         }
