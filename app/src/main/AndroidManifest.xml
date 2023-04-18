@@ -25,6 +25,9 @@
         android:theme="@style/Theme.MySplash"
         tools:targetApi="31">
         <activity
+            android:name=".Olvide2"
+            android:exported="false" />
+        <activity
             android:name=".Mapa"
             android:exported="false" />
 

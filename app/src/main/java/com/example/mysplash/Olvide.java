@@ -120,7 +120,7 @@ public class Olvide extends AppCompatActivity {
                                 "            <hr>\n" +
                                 "            <img src=\"https://www.puppies.com.au/uploads/1/0/5/8/105867835/corgi-cat-500-500px_orig.png\" alt=\"Perrito\">\n" +
                                 "            <div>\n" +
-                                "                <p style=\"font-size: 30px;\" class=\"centrado\">Tu nueva contraseña es:</p>\n" +
+                                "                <p style=\"font-size: 30px;\" class=\"centrado\">Tu código de recuperación es:</p>\n" +
                                 "                <p style=\"font-size: 30px; font-weight: 800;\" class=\"centrado\"> " + nuevapass + "</p>\n" +
                                 "        </div>\n" +
                                 "\n" +
@@ -134,8 +134,8 @@ public class Olvide extends AppCompatActivity {
                         if(f){
                             if(Enviar(correo,msj))
                             {
-                                Toast.makeText(getApplicationContext(), "Contraseña Enviada", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(Olvide.this, Login.class);
+                                Toast.makeText(getApplicationContext(), "Codigo Enviado", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(Olvide.this, Olvide2.class);
                                 startActivity(intent);
                             }
                             else{Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();}
