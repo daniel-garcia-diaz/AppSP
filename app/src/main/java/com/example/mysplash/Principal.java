@@ -331,10 +331,9 @@ public class Principal extends AppCompatActivity implements LocationListener{
             info2.setLatitud(latitud);
             Toast.makeText(this, String.valueOf(longitud), Toast.LENGTH_SHORT).show();
             Toast.makeText(this, String.valueOf(latitud), Toast.LENGTH_SHORT).show();
-            stopGps();
         }
-        else
-            return;
+        stopGps();
+
     }
 
     private void startGps() {
